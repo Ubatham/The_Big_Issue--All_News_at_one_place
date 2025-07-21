@@ -1,35 +1,49 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&family=Roboto:wght@400;500&display=swap");
 
 * {
-    padding: 0;
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 :root {
-    --primary-text-color: #183b56;
-    --secondary-text-color: #577592;
-    --accent-color: #2294ed;
-    --accent-color-dark: #1d69a3;
+    --primary-text-color: #102a43;
+    --secondary-text-color: #627d98;
+    --accent-color: #0077ff;
+    --accent-color-dark: #005bb5;
+    --bg-color: #f1f5f9;
+    --white: #ffffff;
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    --blur: blur(10px);
 }
 
 body {
     font-family: "Poppins", sans-serif;
+    background-color: var(--bg-color);
     color: var(--primary-text-color);
+    scroll-behavior: smooth;
 }
 
 p {
     font-family: "Roboto", sans-serif;
     color: var(--secondary-text-color);
-    line-height: 1.4rem;
+    line-height: 1.5;
 }
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 ul {
     list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    border-radius: 4px;
 }
 
 .flex {
@@ -40,115 +54,210 @@ ul {
 .container {
     max-width: 1180px;
     margin-inline: auto;
+    padding: 0 16px;
     overflow: hidden;
 }
 
+/* ========== NAVBAR ========== */
 nav {
-    background-color: #f3faff;
-    box-shadow: 0 0 4px #bbd0e2;
+    background-color: #ffffffcc;
+    backdrop-filter: var(--blur);
+    box-shadow: var(--shadow);
     position: fixed;
     top: 0;
-    z-index: 99;
-    left: 0;
-    right: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .main-nav {
     justify-content: space-between;
-    padding-block: 8px;
+    padding: 12px 0;
+    flex-wrap: wrap;
 }
 
 .company-logo img {
-    width: 120px;
+    width: 140px;
 }
 
 .nav-links ul {
-    gap: 16px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
 .hover-link {
     cursor: pointer;
+    font-weight: 500;
+    color: var(--primary-text-color);
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background 0.3s, color 0.3s;
 }
 
 .hover-link:hover {
-    color: var(--secondary-text-color);
+    background-color: var(--accent-color);
+    color: white;
 }
 
 .hover-link:active {
-    color: red;
+    transform: scale(0.98);
 }
 
 .nav-item.active {
     color: var(--accent-color);
+    font-weight: bold;
 }
 
+/* ========== SEARCH BAR ========== */
 .search-bar {
-    height: 32px;
     gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
 }
 
 .news-input {
     width: 200px;
-    height: 100%;
-    padding-inline: 12px;
-    border-radius: 4px;
-    border: 2px solid #bbd0e2;
+    padding: 8px 12px;
+    border: 2px solid #d0e3ff;
+    border-radius: 6px;
     font-family: "Roboto", sans-serif;
+    transition: all 0.3s;
+}
+
+.news-input:focus {
+    border-color: var(--accent-color);
+    outline: none;
 }
 
 .search-button {
     background-color: var(--accent-color);
     color: white;
-    padding: 8px 24px;
     border: none;
-    border-radius: 4px;
+    padding: 8px 20px;
+    border-radius: 6px;
     cursor: pointer;
-    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    transition: background 0.3s ease;
 }
 
 .search-button:hover {
     background-color: var(--accent-color-dark);
 }
 
+/* ========== WAIT MESSAGE ========== */
+.wait-message {
+    text-align: center;
+    margin-top: 140px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    color: var(--secondary-text-color);
+    font-size: 1rem;
+}
+
+.wait-message h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: var(--primary-text-color);
+}
+
+.wait-message p {
+    font-size: 0.95rem;
+}
+
+/* ========== MAIN CONTENT ========== */
 main {
-    padding-block: 20px;
-    margin-top: 80px;
+    margin-top: 20px;
+    padding: 20px;
 }
 
 .cards-container {
-    justify-content: space-between;
+    display: flex;
     flex-wrap: wrap;
-    row-gap: 20px;
+    gap: 20px;
+    justify-content: center;
     align-items: start;
+    margin-top: 20px;
 }
 
+/* ========== NEWS CARD ========== */
 .card {
-    width: 360px;
-    min-height: 400px;
-    box-shadow: 0 0 4px #d4ecff;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #fff;
+    width: 340px;
+    min-height: 420px;
+    background: var(--card-bg);
+    backdrop-filter: var(--blur);
+    box-shadow: var(--shadow);
+    border-radius: 16px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-    box-shadow: 1px 1px 8px #d4ecff;
-    background-color: #f9fdff;
-    transform: translateY(-2px);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
 }
 
 .card-header img {
-    width: 100%;
     height: 180px;
     object-fit: cover;
+    width: 100%;
+    border-bottom: 1px solid #e3e3e3;
 }
 
 .card-content {
-    padding: 12px;
+    padding: 16px;
+}
+
+.card-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
 }
 
 .news-source {
-    margin-block: 12px;
+    font-size: 0.8rem;
+    color: #768b9e;
+    margin-bottom: 10px;
+}
+
+.news-desc {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+
+/* ========== LOADING TEXT ========== */
+#loading {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: var(--secondary-text-color);
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links ul {
+        justify-content: center;
+    }
+
+    .search-bar {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .news-input {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .card {
+        width: 95%;
+    }
+
+    .wait-message {
+        margin-top: 160px;
+    }
 }

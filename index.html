@@ -1,59 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Big Issue :- All News at one place.</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Big Issue: All News at One Place</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+    <!-- Navigation -->
     <nav>
         <div class="main-nav container flex">
             <a href="#" onclick="reload()" class="company-logo">
-                <img src="logo.png" alt="company logo">
+                <img src="logo.png" alt="company logo" />
             </a>
             <div class="nav-links">
                 <ul class="flex">
-					<li class="hover-link nav-item" id="ipl" onclick="onNavItemClick('Indian sports')">Sports</li>
-                    <li class="hover-link nav-item" id="finance" onclick="onNavItemClick('Indian banking')">Banking</li>
+                    <li class="hover-link nav-item" id="sports" onclick="onNavItemClick('Indian sports')">Sports</li>
+                    <li class="hover-link nav-item" id="banking" onclick="onNavItemClick('Indian banking')">Banking</li>
                     <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian politics')">Politics</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian entertainment')">Entertainment</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian Travel')">Travel</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian trending')">Trending</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian Style')">Style</li>
+                    <li class="hover-link nav-item" id="entertainment" onclick="onNavItemClick('Indian entertainment')">Entertainment</li>
+                    <li class="hover-link nav-item" id="travel" onclick="onNavItemClick('Indian travel')">Travel</li>
+                    <li class="hover-link nav-item" id="trending" onclick="onNavItemClick('Indian trending')">Trending</li>
+                    <li class="hover-link nav-item" id="style" onclick="onNavItemClick('Indian style')">Style</li>
                 </ul>
             </div>
             <div class="search-bar flex">
-                <input id="search-text" type="text" class="news-input" placeholder="e.g. Science">
+                <input id="search-text" type="text" class="news-input" placeholder="e.g. Science" />
                 <button id="search-button" class="search-button">Search</button>
             </div>
-			
         </div>
-		<div><h2><br>Wait for news to load because it takes time to load from server if not displayed then check the console</h2></div>
     </nav>
-    
 
+    <!-- Wait Message -->
+    <section class="wait-message">
+        <h2>Wait for news to load...</h2>
+        <p>If not, check the browser console for errors.</p>
+    </section>
+
+    <!-- Main Content -->
     <main>
+        <!-- Loading Indicator -->
+        <div id="loading" style="display: none;">
+            <h3>Loading news...</h3>
+        </div>
+
+        <!-- News Cards -->
         <div class="cards-container container flex" id="cards-container">
-            
+            <!-- News cards will be injected here -->
         </div>
     </main>
 
+    <!-- News Card Template -->
     <template id="template-news-card">
         <div class="card">
             <div class="card-header">
-                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img">
+                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img" />
             </div>
             <div class="card-content">
-                <h3 id="news-title">This is the Title</h3>
-                <h6 class="news-source" id="news-source">End Gadget 26/08/2023</h6>
-                <p class="news-desc" id="news-desc">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae saepe quis voluptatum quisquam vitae doloremque facilis molestias quae ratione cumque!</p>
+                <h3 id="news-title">News Title</h3>
+                <h6 class="news-source" id="news-source">Source · Date</h6>
+                <p class="news-desc" id="news-desc">
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                </p>
             </div>
         </div>
     </template>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
-</html> 
+</html>
