@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Articles</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">⭐ Saved Articles</div>
+    <a href="index.html" class="saved-btn">⬅ Back</a>
+</header>
+
+<div id="savedContainer" class="news-container"></div>
+
+<script>
+const container=document.getElementById("savedContainer");
+const saved=JSON.parse(localStorage.getItem("savedNews"))||[];
+
+if(saved.length===0){
+ container.innerHTML="<h2 style='text-align:center'>No saved articles yet</h2>";
+}
+
+saved.forEach(article=>{
+ const card=document.createElement("div");
+ card.className="card";
+
+ card.innerHTML=`
+  <img src="${article.urlToImage}">
+  <div class="content">
+    <div class="title">${article.title}</div>
+    <div class="desc">${article.description||""}</div>
+  </div>
+ `;
+
+ card.onclick=()=>window.open(article.url,"_blank");
+ container.appendChild(card);
+});
+</script>
+
+</body>
+</html>

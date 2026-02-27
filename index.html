@@ -1,74 +1,121 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Big Issue: All News at One Place</title>
+    <!-- Primary SEO -->
+    <title>The Big Issue - Latest News from India & World</title>
+    <meta
+      name="description"
+      content="Read the latest breaking news from India and around the world. Business, Technology, Sports, Health and Entertainment updates in one place."
+    />
+    <meta
+      name="keywords"
+      content="latest news india, technology news india, sports news, business news, breaking news india, student news website"
+    />
+    <meta name="author" content="Aayush Sharma" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://the-big-issue.vercel.app/" />
+    <!-- Mobile SEO -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#2563eb" />
+    <!-- Performance -->
+    <link rel="preconnect" href="https://newsapi.org" />
+    <link rel="dns-prefetch" href="https://newsapi.org" />
+    <!-- Open Graph (WhatsApp / LinkedIn preview) -->
+    <meta
+      property="og:title"
+      content="The Big Issue - Latest News from India & World"
+    />
+    <meta
+      property="og:description"
+      content="All breaking news in one place. Read latest India and world news instantly."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://the-big-issue.vercel.app/" />
+    <meta
+      property="og:image"
+      content="https://the-big-issue.vercel.app/preview.png"
+    />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The Big Issue News Website" />
+    <meta
+      name="twitter:description"
+      content="Latest news from India and the world."
+    />
+    <meta
+      name="twitter:image"
+      content="https://the-big-issue.vercel.app/preview.png"
+    />
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="favicon.ico" />
     <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="main-nav container flex">
-            <a href="#" onclick="reload()" class="company-logo">
-                <img src="logo.png" alt="company logo" />
-            </a>
-            <div class="nav-links">
-                <ul class="flex">
-                    <li class="hover-link nav-item" id="sports" onclick="onNavItemClick('Indian sports')">Sports</li>
-                    <li class="hover-link nav-item" id="banking" onclick="onNavItemClick('Indian banking')">Banking</li>
-                    <li class="hover-link nav-item" id="politics" onclick="onNavItemClick('Indian politics')">Politics</li>
-                    <li class="hover-link nav-item" id="entertainment" onclick="onNavItemClick('Indian entertainment')">Entertainment</li>
-                    <li class="hover-link nav-item" id="travel" onclick="onNavItemClick('Indian travel')">Travel</li>
-                    <li class="hover-link nav-item" id="trending" onclick="onNavItemClick('Indian trending')">Trending</li>
-                    <li class="hover-link nav-item" id="style" onclick="onNavItemClick('Indian style')">Style</li>
-                </ul>
-            </div>
-            <div class="search-bar flex">
-                <input id="search-text" type="text" class="news-input" placeholder="e.g. Science" />
-                <button id="search-button" class="search-button">Search</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Wait Message -->
-    <section class="wait-message">
-        <h2>Wait for news to load...</h2>
-        <p>If not, check the browser console for errors.</p>
+    <!-- Structured Data (VERY IMPORTANT) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "NewsMediaOrganization",
+        "name": "The Big Issue",
+        "url": "https://the-big-issue.vercel.app/",
+        "logo": "https://the-big-issue.vercel.app/favicon.ico",
+        "founder": { "@type": "Person", "name": "Aayush Sharma" }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo">
+        📰 The Big Issue
+        <span class="tagline">Smart, fast headlines for busy readers</span>
+      </div>
+      <div id="hamburger" class="hamburger">☰</div>
+      <nav id="navMenu" class="nav-links">
+        <button class="nav-btn active" data-category="general">General</button>
+        <button class="nav-btn" data-category="business">Business</button>
+        <button class="nav-btn" data-category="sports">Sports</button>
+        <button class="nav-btn" data-category="technology">Tech</button>
+        <button class="nav-btn" data-category="entertainment">
+          Entertainment
+        </button>
+        <button class="nav-btn" data-category="health">Health</button>
+        <a href="saved.html" class="saved-btn">⭐ Saved</a>
+      </nav>
+      <div class="actions">
+        <input
+          id="search"
+          type="text"
+          placeholder="Search news..."
+          aria-label="Search News"
+        />
+        <button id="themeToggle" aria-label="Toggle dark mode">🌙</button>
+      </div>
+    </header>
+    <!-- Progress Bar -->
+    <div id="progress"></div>
+    <!-- Breaking News -->
+    <section class="ticker" id="ticker">
+      <span>Loading breaking news...</span>
     </section>
-
-    <!-- Main Content -->
+    <!-- Featured Article -->
+    <section id="featured" class="featured"></section>
+    <!-- News Section -->
     <main>
-        <!-- Loading Indicator -->
-        <div id="loading" style="display: none;">
-            <h3>Loading news...</h3>
-        </div>
-
-        <!-- News Cards -->
-        <div class="cards-container container flex" id="cards-container">
-            <!-- News cards will be injected here -->
-        </div>
+      <section class="main-header">
+        <h1>Latest headlines from India & the world</h1>
+        <p>Curated stories across Business, Tech, Sports, Health and more.</p>
+      </section>
+      <section id="news-container" class="news-container"></section>
+      <div id="loader" class="loader" role="status" aria-live="polite">
+        <div class="spinner"></div>
+        <span class="loader-text">Loading news...</span>
+      </div>
     </main>
-
-    <!-- News Card Template -->
-    <template id="template-news-card">
-        <div class="card">
-            <div class="card-header">
-                <img src="https://via.placeholder.com/400x200" alt="news-image" id="news-img" />
-            </div>
-            <div class="card-content">
-                <h3 id="news-title">News Title</h3>
-                <h6 class="news-source" id="news-source">Source · Date</h6>
-                <p class="news-desc" id="news-desc">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                </p>
-            </div>
-        </div>
-    </template>
-
-    <!-- JavaScript -->
+    <!-- Back to top -->
+    <button id="topBtn" aria-label="Back to top">↑</button>
+    <!-- Toast Notification -->
+    <div id="toast" aria-live="polite" aria-atomic="true"></div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
