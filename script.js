@@ -1,14 +1,13 @@
- // 🔑 Your NewsAPI key
-const API_KEY = "09ca60a220f0416f9fced47c5b4cbb27";
-const BASE_URL = "https://newsapi.org/v2/everything?q=";
-
-
 /* ================= STATE ================= */
 let page = 1;
 let currentCategory = "general";
 let searchQuery = "";
 let loading = false;
 let endReached = false;
+
+/* BACKEND URL (LOCAL) */
+// const BACKEND_URL = "http://localhost:5000/news";
+const BACKEND_URL = "https://the-big-issue-latest-news-from-india.onrender.com/news";
 
 /* ================= DOM ================= */
 const container = document.getElementById("news-container");
@@ -83,9 +82,7 @@ async function getNews(reset=false){
         loader.innerText="Loading news...";
     }
 
-    const keyword = searchQuery || (currentCategory + " india news");
-
-    const url=`https://newsapi.org/v2/everything?q=${encodeURIComponent(keyword)}&language=en&sortBy=publishedAt&pageSize=9&page=${page}&apiKey=${API_KEY}`;
+    const url = `${BACKEND_URL}?page=${page}&category=${currentCategory}&search=${encodeURIComponent(searchQuery)}`;
 
     try{
         const res = await fetch(url);
@@ -128,7 +125,7 @@ async function getNews(reset=false){
                 getNews(false);
             };
         }
-        showToast("API limit reached or network issue");
+        showToast("Backend not running or API limit reached");
     }
 
     loading=false;
@@ -177,17 +174,15 @@ function createCard(a){
         </div>
     `;
 
-    /* ---------- Prevent star/share from opening article ---------- */
     card.addEventListener("click",(e)=>{
         if(e.target.closest(".bookmark") || e.target.closest(".share")) return;
         window.open(a.url,"_blank");
     });
 
-    /* ---------- Bookmark Logic (SAFE STORAGE) ---------- */
+    /* BOOKMARK */
     const bookmarkBtn = card.querySelector(".bookmark");
     let saved=JSON.parse(localStorage.getItem("savedNews"))||[];
 
-    // restore star on reload
     if(saved.some(item=>item.url===a.url))
         bookmarkBtn.innerText="⭐";
 
@@ -220,7 +215,7 @@ function createCard(a){
         localStorage.setItem("savedNews",JSON.stringify(saved));
     });
 
-    /* ---------- Share ---------- */
+    /* SHARE */
     card.querySelector(".share").addEventListener("click",(e)=>{
         e.stopPropagation();
 
